@@ -4,14 +4,17 @@ import {
 import './App.css';
 import AppRouter from './components/AppRouter/AppRouter'
 import Header from "./components/Header/Header";
-
+import { store } from './store'
+import { Provider } from 'react-redux'
 
 function App() {
   return (
-    <Router>
-      <Header></Header>
-      <AppRouter></AppRouter>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header></Header>
+        <AppRouter></AppRouter>
+      </Router>
+    </Provider>
   );
 }
 

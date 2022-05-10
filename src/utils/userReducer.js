@@ -8,15 +8,15 @@ export const userSlice = createSlice({
   name: "user data",
   initialState,
   reducers: {
-    login: (state) => {
+    loginRedux: (state) => {
       state.isLogin = true;
     },
-    logout: (state) => {
+    logoutRedux: (state) => {
       state.isLogin = false;
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { loginRedux, logoutRedux } = userSlice.actions;
 
 export default userSlice.reducer;

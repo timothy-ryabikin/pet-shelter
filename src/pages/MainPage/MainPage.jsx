@@ -1,6 +1,6 @@
 import Header from "../../components/Header/Header";
 
-import styles from "./MainPage.module.css";
+import styles from "./MainPage.module.scss";
 
 function MainPage() {
   return (

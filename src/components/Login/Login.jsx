@@ -32,7 +32,7 @@ function Login() {
 
   return (
     <div className={styles.login}>
-      <Button color="inherit" variant="contained" onClick={signInWithGoogle}>
+      <Button color="success" variant="contained" onClick={signInWithGoogle}>
         Login with &nbsp;<GoogleIcon></GoogleIcon>oogle
       </Button>
     </div>

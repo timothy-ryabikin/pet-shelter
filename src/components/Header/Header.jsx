@@ -1,7 +1,4 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import { useDispatch } from "react-redux";
 import { logout } from "../../firebase";
 import { logoutRedux } from "../../utils/userReducer";
@@ -11,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 import React, { useEffect } from "react";
 
-import styles from "./Header.module.css";
+import styles from "./Header.module.scss";
+import Logo from "../SVG/Logo";
 
 function Header() {
   const [user, loading, error] = useAuthState(auth);
@@ -29,15 +27,15 @@ function Header() {
 
   return (
     <div className={styles.header}>
-      <AppBar color={"secondary"} position="static">
-        <Toolbar>
-          <Grid container justify={"flex-end"}>
-            <Button color="inherit" variant={"outlined"} onClick={logout}>
-              Logout
-            </Button>
-          </Grid>
-        </Toolbar>
-      </AppBar>
+      <div className={styles.left_section}>
+        Pet Shelter
+        <div className={styles.logo}>
+          <Logo></Logo>
+        </div>
+      </div>
+      <Button color="success" variant="contained" onClick={logout}>
+        Logout
+      </Button>
     </div>
   );
 }

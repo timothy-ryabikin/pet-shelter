@@ -1,6 +1,6 @@
 .header {
     padding: 20px;
-    background: linear-gradient(88.86deg, #8C77B8 0.95%, #0C90F0 97.13%);
+    background: linear-gradient(88.86deg, #77ACB8 0.95%, rgba(58, 219, 151, 0.45) 97.13%);
     display: flex;
     justify-content: space-between;
 }
@@ -17,4 +17,15 @@
     display: flex;
     align-items: center;
     gap: 10px
+}
+
+.right_section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 40px;
 }

@@ -21,8 +21,7 @@ function Login() {
     }
     if (user) {
       //TODO: add uer to redux
-      console.log("user login", user);
-      dispatch(loginRedux());
+      dispatch(loginRedux(user));
       navigate("/");
     }
     if (error) {

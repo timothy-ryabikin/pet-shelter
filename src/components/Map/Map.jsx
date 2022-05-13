@@ -1,5 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import { zoomIn } from "../SVG/zoomIn";
+import { zoomOut } from "../SVG/zoomOut";
+import { centerLocation } from "../SVG/centerLocation";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Map.module.scss";
@@ -99,15 +102,34 @@ function Map() {
         setAddress(adr1 + " " + adr2);
       });
   }, [lat, lng, adr1, adr2, userLat2, userLng2]);
+
+  function setZoomIn() {
+    map.current.zoomIn({ duration: 1000 });
+  }
+
+  function setZoomOut() {
+    map.current.zoomOut({ duration: 1000 });
+  }
+
+  function centerMap() {
+    map.current.flyTo({ center: [userLng2, userLat2] });
+  }
   return (
     <div>
-      <button
-        onClick={() => {
-          map.current.flyTo({ center: [userLng2, userLat2] });
-        }}
-      >
-        Get position
-      </button>
+      <div className={styles.map_buttons}>
+        <button className={styles.button} onClick={setZoomIn}>
+          {zoomIn}
+        </button>
+        <button className={styles.button} onClick={setZoomOut}>
+          {zoomOut}
+        </button>
+        <button
+          className={styles.button + " " + styles.center_button}
+          onClick={centerMap}
+        >
+          {centerLocation}
+        </button>
+      </div>
       <div className={styles.sidebar}>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} | Address: {address}
       </div>

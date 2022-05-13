@@ -7,11 +7,46 @@
     background-color: rgba(35, 55, 75, 0.9);
     color: #fff;
     padding: 6px 12px;
-    font-family: monospace;
+    // font-family: monospace;
     z-index: 1;
     position: absolute;
     // top: 0;
     // left: 0;
     margin: 12px;
     border-radius: 4px;
+}
+
+.map_buttons {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0px 50px 50px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    background-color: rgb(143, 206, 103);
+    border: none;
+
+    &:hover {
+        background-color: rgb(26, 175, 126);
+        cursor: pointer;
+    }
+}
+
+.center_button {
+    margin-top: 20px;
 }

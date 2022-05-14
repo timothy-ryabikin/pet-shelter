@@ -3,15 +3,13 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import { zoomIn } from "../SVG/zoomIn";
 import { zoomOut } from "../SVG/zoomOut";
 import { centerLocation } from "../SVG/centerLocation";
+import { useSelector } from "react-redux";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Map.module.scss";
 import "./Map.css";
 
 function Map() {
-  //   mapboxgl.accessToken =
-  //     "pk.eyJ1IjoidGltYWExMjMiLCJhIjoiY2t4MXNmZzVtMDEwNDJvbnhyNHByZWlzdyJ9.oMtL_4Qj7bSnF-pxB2AZ7g";
-
   mapboxgl.accessToken = process.env.REACT_APP_MAP_ACCESS_TOKEN;
 
   const mapContainer = useRef(null);
@@ -24,40 +22,7 @@ function Map() {
   const [lng, setLng] = useState(30.3207);
   const [lat, setLat] = useState(59.9401);
   const [zoom, setZoom] = useState(16);
-
-  const geojson = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [30.2533511, 59.8512329],
-        },
-        properties: {
-          petType: "Cat",
-          petName: "Yoshi",
-          ownerName: "Tima",
-          ownerContat: "89523691948",
-          description: "From 15-19 may",
-        },
-      },
-      {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [30.2545, 59.8554],
-        },
-        properties: {
-          petType: "Dog",
-          petName: "Bysia",
-          ownerName: "Jogn",
-          ownerContat: "89523691948",
-          description: "From 14-22 july",
-        },
-      },
-    ],
-  };
+  const markers = useSelector((state) => state.data.geojson);
 
   var options = {
     enableHighAccuracy: true,
@@ -88,7 +53,7 @@ function Map() {
       });
     }
 
-    for (const feature of geojson.features) {
+    for (const feature of markers.features) {
       // create a HTML element for each feature
       const el = document.createElement("div");
       el.className = styles.marker;

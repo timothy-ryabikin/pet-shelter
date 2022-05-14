@@ -6,6 +6,7 @@ import { centerLocation } from "../SVG/centerLocation";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Map.module.scss";
+import "./Map.css";
 
 function Map() {
   //   mapboxgl.accessToken =
@@ -23,6 +24,40 @@ function Map() {
   const [lng, setLng] = useState(30.3207);
   const [lat, setLat] = useState(59.9401);
   const [zoom, setZoom] = useState(16);
+
+  const geojson = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [30.2533511, 59.8512329],
+        },
+        properties: {
+          petType: "Cat",
+          petName: "Yoshi",
+          ownerName: "Tima",
+          ownerContat: "89523691948",
+          description: "From 15-19 may",
+        },
+      },
+      {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [30.2545, 59.8554],
+        },
+        properties: {
+          petType: "Dog",
+          petName: "Bysia",
+          ownerName: "Jogn",
+          ownerContat: "89523691948",
+          description: "From 14-22 july",
+        },
+      },
+    ],
+  };
 
   var options = {
     enableHighAccuracy: true,
@@ -51,6 +86,29 @@ function Map() {
         center: [crd.longitude, crd.latitude],
         zoom: zoom,
       });
+    }
+
+    for (const feature of geojson.features) {
+      // create a HTML element for each feature
+      const el = document.createElement("div");
+      el.className = styles.marker;
+
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML(
+              `
+              <h3>Pet type: ${feature.properties.petType}</h3>
+              <p>Pet name: ${feature.properties.petName}</p>
+              <p>Owner name: ${feature.properties.ownerName}</p>
+              <p>Owner contact: ${feature.properties.ownerContat}</p>
+              <p>Description: ${feature.properties.description}</p>
+              `
+            )
+        )
+        .addTo(map.current);
     }
   }
 

@@ -50,3 +50,17 @@
 .center_button {
     margin-top: 20px;
 }
+
+.marker {
+    background-image: url('../../assets/images/pet.png');
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+
+    &:hover {
+        outline: 4px solid white;
+    }
+}

@@ -36,7 +36,15 @@ function Header() {
       <div className={styles.right_section}>
         <div>{userData.displayName}</div>
         <img src={userData.photoURL} alt="Avatar" className={styles.avatar} />
-        <Button color="success" variant="contained" onClick={logout}>
+        <Button
+          color="success"
+          variant="contained"
+          onClick={() => {
+            const result = window.confirm("Do you want to logout?");
+            if (!result) return;
+            logout();
+          }}
+        >
           Logout
         </Button>
       </div>

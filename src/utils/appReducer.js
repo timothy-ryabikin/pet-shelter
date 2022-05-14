@@ -1,20 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isAddRequestFormShown: false,
+  isNewRequestFormShown: false,
 };
 
 export const appSlice = createSlice({
   name: "app data",
   initialState,
   reducers: {
-    a: (state, action) => {
-      state.isLogin = true;
-      state.userData = action.payload;
+    hideOrShowNewRequestForm: (state) => {
+      state.isNewRequestFormShown = !state.isNewRequestFormShown;
     },
   },
 });
 
-export const { a } = appSlice.actions;
+export const { hideOrShowNewRequestForm } = appSlice.actions;
 
 export default appSlice.reducer;

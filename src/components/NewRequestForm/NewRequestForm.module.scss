@@ -1,0 +1,20 @@
+.new_form {
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    cursor: default;
+    box-shadow: 16px 16px 10px -3px rgba(34, 60, 80, 0.56);
+    
+    &_container {
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(rgba(26, 222, 233, 0.686), rgba(197, 212, 219, 0.84));
+        position: fixed;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }  
+}
+

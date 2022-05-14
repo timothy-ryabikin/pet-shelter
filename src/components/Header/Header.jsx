@@ -11,12 +11,14 @@ import React, { useEffect } from "react";
 
 import styles from "./Header.module.scss";
 import Logo from "../SVG/Logo";
+import { hideOrShowNewRequestForm } from "../../utils/appReducer";
 
 function Header() {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
+
   useEffect(() => {
     if (loading) return;
     if (!user) {
@@ -25,6 +27,10 @@ function Header() {
     }
     if (error) console.log(error);
   }, [user, loading, dispatch, error, navigate]);
+
+  function showNewRequestForm() {
+    dispatch(hideOrShowNewRequestForm());
+  }
 
   return (
     <div className={styles.header}>
@@ -35,7 +41,11 @@ function Header() {
         </div>
       </div>
       <div className={styles.right_section}>
-        <Button color="success" variant="contained">
+        <Button
+          color="success"
+          variant="contained"
+          onClick={showNewRequestForm}
+        >
           New request <PetsIcon sx={{ m: "0px 0px 0px 10px" }}></PetsIcon>
         </Button>
         <div>{userData.displayName}</div>

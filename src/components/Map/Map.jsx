@@ -4,6 +4,7 @@ import { zoomIn } from "../SVG/zoomIn";
 import { zoomOut } from "../SVG/zoomOut";
 import { centerLocation } from "../SVG/centerLocation";
 import { useSelector } from "react-redux";
+import NewRequestForm from "../NewRequestForm/NewRequestForm";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Map.module.scss";
@@ -23,6 +24,9 @@ function Map() {
   const [lat, setLat] = useState(59.9401);
   const [zoom, setZoom] = useState(16);
   const markers = useSelector((state) => state.data.geojson);
+  const isNewRequestForm = useSelector(
+    (state) => state.app.isNewRequestFormShown
+  );
 
   var options = {
     enableHighAccuracy: true,
@@ -156,6 +160,7 @@ function Map() {
       <div className={styles.sidebar}>
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} | Address: {address}
       </div>
+      {isNewRequestForm && <NewRequestForm></NewRequestForm>}
       <div ref={mapContainer} className={styles.map} />
     </div>
   );

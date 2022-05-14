@@ -5,6 +5,7 @@ import { logoutRedux } from "../../utils/userReducer";
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import PetsIcon from "@mui/icons-material/Pets";
 
 import React, { useEffect } from "react";
 
@@ -34,10 +35,13 @@ function Header() {
         </div>
       </div>
       <div className={styles.right_section}>
+        <Button color="success" variant="contained">
+          New request <PetsIcon sx={{ m: "0px 0px 0px 10px" }}></PetsIcon>
+        </Button>
         <div>{userData.displayName}</div>
         <img src={userData.photoURL} alt="Avatar" className={styles.avatar} />
         <Button
-          color="success"
+          color="info"
           variant="contained"
           onClick={() => {
             const result = window.confirm("Do you want to logout?");

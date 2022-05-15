@@ -3,8 +3,9 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import { zoomIn } from "../SVG/zoomIn";
 import { zoomOut } from "../SVG/zoomOut";
 import { centerLocation } from "../SVG/centerLocation";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import NewRequestForm from "../NewRequestForm/NewRequestForm";
+import { setMapRef } from "../../utils/appReducer";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Map.module.scss";
@@ -15,6 +16,7 @@ function Map() {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const dispatch = useDispatch();
   const [address, setAddress] = useState("");
   const [adr1, setAdr1] = useState("");
   const [adr2, setAdr2] = useState("");
@@ -23,7 +25,7 @@ function Map() {
   const [lng, setLng] = useState(30.3207);
   const [lat, setLat] = useState(59.9401);
   const [zoom, setZoom] = useState(16);
-  const markers = useSelector((state) => state.data.geojson);
+  const markers = useSelector((state) => state.data.geojson.features);
   const isNewRequestForm = useSelector(
     (state) => state.app.isNewRequestFormShown
   );
@@ -48,6 +50,7 @@ function Map() {
     setUserLng2(crd.longitude);
     setLat(crd.latitude);
     setLng(crd.longitude);
+
     if (!map.current) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -55,9 +58,10 @@ function Map() {
         center: [crd.longitude, crd.latitude],
         zoom: zoom,
       });
+      dispatch(setMapRef(map.current));
     }
 
-    for (const feature of markers.features) {
+    for (const feature of markers) {
       // create a HTML element for each feature
       const el = document.createElement("div");
       el.className = styles.marker;
@@ -73,6 +77,7 @@ function Map() {
               <p>Pet name: ${feature.properties.petName}</p>
               <p>Owner name: ${feature.properties.ownerName}</p>
               <p>Owner contact: ${feature.properties.ownerContat}</p>
+              <p>Address: ${feature.properties.address}</p>
               <p>Description: ${feature.properties.description}</p>
               `
             )
@@ -80,6 +85,34 @@ function Map() {
         .addTo(map.current);
     }
   }
+
+  useEffect(() => {
+    if (map && map.current) {
+      for (const feature of markers) {
+        // create a HTML element for each feature
+        const el = document.createElement("div");
+        el.className = styles.marker;
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+          .setLngLat(feature.geometry.coordinates)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `
+                <h3>Pet type: ${feature.properties.petType}</h3>
+                <p>Pet name: ${feature.properties.petName}</p>
+                <p>Owner name: ${feature.properties.ownerName}</p>
+                <p>Owner contact: ${feature.properties.ownerContat}</p>
+                <p>Address: ${feature.properties.address}</p>
+                <p>Description: ${feature.properties.description}</p>
+                `
+              )
+          )
+          .addTo(map.current);
+      }
+    }
+  }, [markers]);
 
   useEffect(() => {
     navigator.permissions &&

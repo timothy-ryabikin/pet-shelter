@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isNewRequestFormShown: false,
+  mapRef: null,
 };
 
 export const appSlice = createSlice({
@@ -11,9 +12,12 @@ export const appSlice = createSlice({
     hideOrShowNewRequestForm: (state) => {
       state.isNewRequestFormShown = !state.isNewRequestFormShown;
     },
+    setMapRef: (state, action) => {
+      state.mapRef = action.payload;
+    },
   },
 });
 
-export const { hideOrShowNewRequestForm } = appSlice.actions;
+export const { hideOrShowNewRequestForm, setMapRef } = appSlice.actions;
 
 export default appSlice.reducer;

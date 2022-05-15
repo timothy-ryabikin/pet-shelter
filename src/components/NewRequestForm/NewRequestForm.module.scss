@@ -1,14 +1,19 @@
 .new_form {
-    width: 300px;
-    height: 300px;
+    // width: 300px;
+    // height: 300px;
+    padding: 30px;
     background-color: #fff;
     cursor: default;
     box-shadow: 16px 16px 10px -3px rgba(34, 60, 80, 0.56);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 10px;
     
     &_container {
         height: 100%;
         width: 100%;
-        background-image: linear-gradient(rgba(26, 222, 233, 0.686), rgba(197, 212, 219, 0.84));
+        background-image: linear-gradient(rgba(233, 126, 26, 0.686), rgba(118, 141, 55, 0.84));
         position: fixed;
         z-index: 1;
         display: flex;

@@ -16,6 +16,7 @@ const initialState = {
           ownerName: "Tima",
           ownerContat: "89523691948",
           description: "From 15-19 may",
+          address: "Ленинский проспект",
         },
       },
       {
@@ -26,10 +27,11 @@ const initialState = {
         },
         properties: {
           petType: "Dog",
-          petName: "Bysia",
+          petName: "Буся",
           ownerName: "Jogn",
           ownerContat: "89523691948",
           description: "From 14-22 july",
+          address: "Зины портноой 11",
         },
       },
     ],
@@ -40,10 +42,12 @@ export const dataSlice = createSlice({
   name: "markers data",
   initialState,
   reducers: {
-    a: (state, action) => {},
+    addNewMarker: (state, action) => {
+      state.geojson.features.push(action.payload);
+    },
   },
 });
 
-export const { a } = dataSlice.actions;
+export const { addNewMarker } = dataSlice.actions;
 
 export default dataSlice.reducer;

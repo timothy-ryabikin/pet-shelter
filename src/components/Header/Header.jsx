@@ -6,12 +6,17 @@ import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import PetsIcon from "@mui/icons-material/Pets";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import React, { useEffect } from "react";
 
 import styles from "./Header.module.scss";
 import Logo from "../SVG/Logo";
-import { hideOrShowNewRequestForm } from "../../utils/appReducer";
+import {
+  hideOrShowLostPetForm,
+  hideOrShowNewRequestForm,
+} from "../../utils/appReducer";
 
 function Header() {
   const [user, loading, error] = useAuthState(auth);
@@ -32,6 +37,10 @@ function Header() {
     dispatch(hideOrShowNewRequestForm());
   }
 
+  function showLostPetForm() {
+    dispatch(hideOrShowLostPetForm());
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.left_section}>
@@ -41,6 +50,10 @@ function Header() {
         </div>
       </div>
       <div className={styles.right_section}>
+        <Button color="secondary" variant="contained" onClick={showLostPetForm}>
+          Lost pet
+          <HelpOutlineIcon sx={{ m: "0px 0px 0px 10px" }}></HelpOutlineIcon>
+        </Button>
         <Button
           color="success"
           variant="contained"
@@ -59,7 +72,7 @@ function Header() {
             logout();
           }}
         >
-          Logout
+          Logout <LogoutIcon sx={{ m: "0px 0px 0px 10px" }}></LogoutIcon>
         </Button>
       </div>
     </div>

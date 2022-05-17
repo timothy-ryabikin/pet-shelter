@@ -6,6 +6,7 @@ const initialState = {
     features: [
       {
         type: "Feature",
+        category: "Lost",
         geometry: {
           type: "Point",
           coordinates: [30.2533511, 59.8512329],
@@ -21,6 +22,7 @@ const initialState = {
       },
       {
         type: "Feature",
+        category: "Shelter",
         geometry: {
           type: "Point",
           coordinates: [30.2545, 59.8554],

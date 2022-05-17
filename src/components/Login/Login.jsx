@@ -5,7 +5,7 @@ import { auth, signInWithGoogle } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
 import { loginRedux } from "../../utils/userReducer";
-import GoogleIcon from "@mui/icons-material/Google";
+import LoginIcon from "@mui/icons-material/Login";
 
 import styles from "./Login.module.css";
 
@@ -32,7 +32,8 @@ function Login() {
   return (
     <div className={styles.login}>
       <Button color="success" variant="contained" onClick={signInWithGoogle}>
-        Login with &nbsp;<GoogleIcon></GoogleIcon>oogle
+        Login with Google
+        <LoginIcon sx={{ m: "0px 0px 0px 10px" }}></LoginIcon>
       </Button>
     </div>
   );

@@ -1,27 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
-import { hideOrShowNewRequestForm } from "../../utils/appReducer";
+import { hideOrShowLostPetForm } from "../../utils/appReducer";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+
+import styles from "./LostPetForm.module.scss";
 import { addNewMarker } from "../../utils/dataReducer";
 
-import styles from "./NewRequestForm.module.scss";
-
-function NewRequestForm() {
+function LostPetForm() {
   const accessToken = process.env.REACT_APP_MAP_ACCESS_TOKEN;
   const map = useSelector((state) => state.app.mapRef);
   const dispatch = useDispatch();
 
   function handleClose() {
-    dispatch(hideOrShowNewRequestForm());
+    dispatch(hideOrShowLostPetForm());
   }
 
   function disableClose(e) {
     e.stopPropagation();
   }
 
-  const newRequest = {
+  const newLostPet = {
     type: "Feature",
-    category: "Shelter",
+    category: "Lost",
     geometry: {
       type: "Point",
       coordinates: [],
@@ -37,53 +37,53 @@ function NewRequestForm() {
   };
 
   function handlePetType(event) {
-    newRequest.properties.petType = event.target.value;
+    newLostPet.properties.petType = event.target.value;
   }
 
   function handlePetName(event) {
-    newRequest.properties.petName = event.target.value;
+    newLostPet.properties.petName = event.target.value;
   }
 
   function handleOwnerName(event) {
-    newRequest.properties.ownerName = event.target.value;
+    newLostPet.properties.ownerName = event.target.value;
   }
 
   function handleOwnerContat(event) {
-    newRequest.properties.ownerContat = event.target.value;
+    newLostPet.properties.ownerContat = event.target.value;
   }
 
   function handleDescription(event) {
-    newRequest.properties.description = event.target.value;
+    newLostPet.properties.description = event.target.value;
   }
 
   function handleLocation(event) {
     const search = `Санкт-Петербург ${event.target.value}`;
-    newRequest.properties.address = event.target.value;
+    newLostPet.properties.address = event.target.value;
     fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${accessToken}`
     )
       .then((response) => response.json())
       .then((json) => {
-        newRequest.geometry.coordinates = json.features[0].geometry.coordinates;
+        newLostPet.geometry.coordinates = json.features[0].geometry.coordinates;
       });
   }
 
   function addNewRequest() {
-    dispatch(addNewMarker(newRequest));
+    dispatch(addNewMarker(newLostPet));
 
-    dispatch(hideOrShowNewRequestForm());
+    dispatch(hideOrShowLostPetForm());
     map.flyTo({
       center: [
-        newRequest.geometry.coordinates[0],
-        newRequest.geometry.coordinates[1],
+        newLostPet.geometry.coordinates[0],
+        newLostPet.geometry.coordinates[1],
       ],
     });
   }
 
   return (
-    <div className={styles.new_form_container} onClick={handleClose}>
-      <div className={styles.new_form} onClick={disableClose}>
-        <h4>New Request Form</h4>
+    <div className={styles.lost_pet_container} onClick={handleClose}>
+      <div className={styles.lost_pet} onClick={disableClose}>
+        <h4>Lost pet Form</h4>
         <TextField
           label="Pet type"
           variant="outlined"
@@ -124,4 +124,4 @@ function NewRequestForm() {
   );
 }
 
-export default NewRequestForm;
+export default LostPetForm;

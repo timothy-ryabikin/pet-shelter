@@ -10,6 +10,7 @@ import { setMapRef } from "../../utils/appReducer";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "./Map.module.scss";
 import "./Map.css";
+import LostPetForm from "../LostPetForm/LostPetForm";
 
 function Map() {
   mapboxgl.accessToken = process.env.REACT_APP_MAP_ACCESS_TOKEN;
@@ -28,6 +29,9 @@ function Map() {
   const markers = useSelector((state) => state.data.geojson.features);
   const isNewRequestForm = useSelector(
     (state) => state.app.isNewRequestFormShown
+  );
+  const isLostPetFormShowm = useSelector(
+    (state) => state.app.isLostPetFormShowm
   );
 
   var options = {
@@ -64,8 +68,11 @@ function Map() {
     for (const feature of markers) {
       // create a HTML element for each feature
       const el = document.createElement("div");
-      el.className = styles.marker;
-
+      if (feature.category === "Shelter") {
+        el.className = styles.marker;
+      } else {
+        el.className = styles.lost;
+      }
       // make a marker for each feature and add to the map
       new mapboxgl.Marker(el)
         .setLngLat(feature.geometry.coordinates)
@@ -91,7 +98,11 @@ function Map() {
       for (const feature of markers) {
         // create a HTML element for each feature
         const el = document.createElement("div");
-        el.className = styles.marker;
+        if (feature.category === "Shelter") {
+          el.className = styles.marker;
+        } else {
+          el.className = styles.lost;
+        }
 
         // make a marker for each feature and add to the map
         new mapboxgl.Marker(el)
@@ -194,6 +205,7 @@ function Map() {
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom} | Address: {address}
       </div>
       {isNewRequestForm && <NewRequestForm></NewRequestForm>}
+      {isLostPetFormShowm && <LostPetForm></LostPetForm>}
       <div ref={mapContainer} className={styles.map} />
     </div>
   );
